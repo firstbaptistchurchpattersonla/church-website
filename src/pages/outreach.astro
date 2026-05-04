@@ -76,30 +76,36 @@ const CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSYqnkwYunel9o-
 </Layout>
 
 <script define:vars={{ CSV_URL }}>
+  const PRIORITY_ORDER = { high: 0, medium: 1, low: 2 };
+  const PRIORITY_STYLES = {
+    high:    { label: 'High Priority',   border: 'border-red-400',  badge: 'bg-red-50 text-red-600' },
+    medium:  { label: 'Medium Priority', border: 'border-gold',     badge: 'bg-amber-50 text-amber-700' },
+    low:     { label: 'Low Priority',    border: 'border-navy/20',  badge: 'bg-slate-100 text-slate-500' },
+    default: { label: 'Needed',          border: 'border-navy/20',  badge: 'bg-slate-100 text-slate-500' },
+  };
+
   function parseCSV(text) {
     return text.split('\n').map(line => {
       const result = [];
-      let cell = '';
-      let inQuotes = false;
-      for (let i = 0; i < line.length; i++) {
-        if (line[i] === '"') {
-          inQuotes = !inQuotes;
-        } else if (line[i] === ',' && !inQuotes) {
-          result.push(cell.trim());
-          cell = '';
-        } else {
-          cell += line[i];
-        }
+      let cell = '', inQuotes = false;
+      for (const ch of line) {
+        if (ch === '"') { inQuotes = !inQuotes; }
+        else if (ch === ',' && !inQuotes) { result.push(cell.trim()); cell = ''; }
+        else { cell += ch; }
       }
       result.push(cell.trim());
       return result;
     }).filter(row => row.some(c => c.trim()));
   }
 
-  function renderCard(item, notes) {
+  function renderCard(item, category, notes, priorityKey) {
+    const style = PRIORITY_STYLES[priorityKey] ?? PRIORITY_STYLES.default;
     return `
-      <div class="bg-cream rounded-xl p-6 border-l-4 border-gold shadow-sm">
-        <p class="font-serif text-lg font-semibold text-navy leading-snug">${item}</p>
+      <div class="bg-cream rounded-xl p-6 border-l-4 ${style.border} shadow-sm">
+        <div class="flex items-start justify-between gap-3 mb-1">
+          <p class="font-serif text-lg font-semibold text-navy leading-snug">${item}</p>
+          ${category ? `<span class="flex-shrink-0 font-sans text-[10px] font-semibold tracking-wider uppercase px-2 py-1 rounded ${style.badge}">${category}</span>` : ''}
+        </div>
         ${notes ? `<p class="font-sans text-sm text-slate-500 mt-2 leading-relaxed">${notes}</p>` : ''}
       </div>
     `;
@@ -122,37 +128,50 @@ const CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSYqnkwYunel9o-
       const headers = rows[0].map(h => h.trim().toLowerCase());
       const data = rows.slice(1).filter(row => row.some(c => c.trim()));
 
-      const itemIdx = headers.findIndex(h => h.includes('item') || h.includes('name') || h === '');
-      const catIdx  = headers.findIndex(h => h.includes('cat'));
-      const noteIdx = headers.findIndex(h => h.includes('note') || h.includes('desc'));
+      const idxItem  = headers.findIndex(h => h.includes('item') || h.includes('name'));
+      const idxPri   = headers.findIndex(h => h.includes('prior'));
+      const idxCat   = headers.findIndex(h => h.includes('cat'));
+      const idxNotes = headers.findIndex(h => h.includes('note') || h.includes('desc'));
 
-      const getItem  = row => row[itemIdx >= 0 ? itemIdx : 0] || '';
-      const getCat   = row => catIdx  >= 0 ? (row[catIdx]  || '').trim() : '';
-      const getNotes = row => noteIdx >= 0 ? (row[noteIdx] || '').trim() : '';
+      const getField = (row, idx) => idx >= 0 ? (row[idx] || '').trim() : '';
 
-      if (catIdx >= 0) {
-        const groups = {};
-        data.forEach(row => {
-          const cat = getCat(row) || 'General';
-          if (!groups[cat]) groups[cat] = [];
-          groups[cat].push(row);
-        });
+      // Sort by priority then category
+      const sorted = [...data].sort((a, b) => {
+        const pa = PRIORITY_ORDER[getField(a, idxPri).toLowerCase()] ?? 99;
+        const pb = PRIORITY_ORDER[getField(b, idxPri).toLowerCase()] ?? 99;
+        if (pa !== pb) return pa - pb;
+        return getField(a, idxCat).localeCompare(getField(b, idxCat));
+      });
 
-        container.innerHTML = Object.entries(groups).map(([cat, rows]) => `
-          <div class="mb-10">
-            <h3 class="font-sans text-xs font-semibold tracking-[0.25em] uppercase text-gold mb-5">${cat}</h3>
+      // Group by priority
+      const groups = {};
+      sorted.forEach(row => {
+        const priRaw = getField(row, idxPri).toLowerCase();
+        const priKey = PRIORITY_ORDER[priRaw] !== undefined ? priRaw : 'default';
+        if (!groups[priKey]) groups[priKey] = [];
+        groups[priKey].push(row);
+      });
+
+      container.innerHTML = Object.entries(groups).map(([priKey, rows]) => {
+        const style = PRIORITY_STYLES[priKey] ?? PRIORITY_STYLES.default;
+        return `
+          <div class="mb-12">
+            <div class="flex items-center gap-4 mb-6">
+              <h3 class="font-sans text-xs font-semibold tracking-[0.25em] uppercase text-navy/60">${style.label}</h3>
+              <div class="flex-1 h-px bg-navy/10"></div>
+            </div>
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-              ${rows.map(row => renderCard(getItem(row), getNotes(row))).join('')}
+              ${rows.map(row => renderCard(
+                getField(row, idxItem) || row[0],
+                getField(row, idxCat),
+                getField(row, idxNotes),
+                priKey
+              )).join('')}
             </div>
           </div>
-        `).join('');
-      } else {
-        container.innerHTML = `
-          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            ${data.map(row => renderCard(getItem(row), getNotes(row))).join('')}
-          </div>
         `;
-      }
+      }).join('');
+
     } catch {
       container.innerHTML = '<p class="text-center font-sans text-slate-400 py-8">Unable to load items right now. Please check back soon or call us at (985) 395-3681.</p>';
     }
