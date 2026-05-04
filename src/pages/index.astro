@@ -1,0 +1,226 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="First Baptist Church Patterson, LA — Loving God and People">
+
+  <!-- ░░ HERO ░░ -->
+  <section class="relative min-h-[calc(100vh-5rem)] flex items-center justify-center overflow-hidden bg-navy-dark">
+    <!-- Subtle radial glow -->
+    <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_#243548_0%,_#131E28_70%)]"></div>
+    <!-- Decorative rings -->
+    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full border border-gold/5 pointer-events-none"></div>
+    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] rounded-full border border-gold/8 pointer-events-none"></div>
+
+    <div class="relative z-10 text-center px-6 max-w-4xl mx-auto py-20">
+      <!-- Gold divider with cross -->
+      <div class="flex items-center justify-center gap-4 mb-10">
+        <div class="h-px w-16 bg-gradient-to-r from-transparent to-gold/50"></div>
+        <svg class="w-5 h-5 text-gold flex-shrink-0" viewBox="0 0 20 20" fill="currentColor">
+          <path d="M9 0h2v8h8v2h-8v8H9v-8H1V8h8V0z"/>
+        </svg>
+        <div class="h-px w-16 bg-gradient-to-l from-transparent to-gold/50"></div>
+      </div>
+
+      <h1 class="font-serif text-5xl sm:text-6xl md:text-7xl font-semibold text-cream leading-[1.1] mb-4">
+        First Baptist<br />Church
+      </h1>
+      <p class="font-sans text-gold text-xs sm:text-sm tracking-[0.35em] uppercase mb-6">
+        Patterson, Louisiana
+      </p>
+      <p class="font-serif text-xl md:text-2xl text-cream/70 italic mb-14">
+        "Loving God and People"
+      </p>
+
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <a
+          href="/contact"
+          class="px-9 py-4 bg-gold text-navy font-sans font-semibold text-sm tracking-wide rounded transition-all duration-200 hover:bg-gold-light hover:shadow-lg"
+        >
+          Join Us This Sunday
+        </a>
+        <a
+          href="/about"
+          class="px-9 py-4 border border-cream/20 text-cream font-sans font-medium text-sm tracking-wide rounded transition-all duration-200 hover:border-gold hover:text-gold"
+        >
+          Learn More
+        </a>
+      </div>
+
+      <!-- Service times -->
+      <div class="mt-16 flex flex-col sm:flex-row justify-center gap-6 sm:gap-10 text-xs font-sans text-cream/45 tracking-wide">
+        <span>Sun 9:30 AM — Sunday School</span>
+        <span class="hidden sm:inline text-cream/20">|</span>
+        <span>Sun 10:30 AM — Worship</span>
+        <span class="hidden sm:inline text-cream/20">|</span>
+        <span>Wed 6:00 PM — Bible Study</span>
+      </div>
+    </div>
+
+    <!-- Scroll hint -->
+    <div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-cream/25">
+      <svg class="w-5 h-5 animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 9l-7 7-7-7"/>
+      </svg>
+    </div>
+  </section>
+
+  <!-- ░░ WELCOME ░░ -->
+  <section class="py-28 bg-cream">
+    <div class="max-w-2xl mx-auto px-6 text-center">
+      <div class="flex items-center justify-center gap-4 mb-8">
+        <div class="h-px w-10 bg-gold/40"></div>
+        <span class="font-sans text-[10px] font-semibold tracking-[0.3em] uppercase text-gold">Welcome</span>
+        <div class="h-px w-10 bg-gold/40"></div>
+      </div>
+      <h2 class="font-serif text-4xl md:text-5xl font-semibold text-navy leading-tight mb-8">
+        You Are Welcome Here
+      </h2>
+      <p class="font-sans text-lg text-slate-600 leading-relaxed mb-5">
+        We are a small, traditional Baptist church planted by the hand of God in St. Mary Parish —
+        a family of believers committed to loving God and loving the people of Patterson and beyond.
+      </p>
+      <p class="font-sans text-lg text-slate-600 leading-relaxed mb-10">
+        Whether you're searching for faith, returning after a long time away, or simply looking for
+        a church home — our doors are open. Come as you are.
+      </p>
+      <a
+        href="/about"
+        class="inline-flex items-center gap-2 font-sans text-sm font-semibold text-gold hover:text-navy transition-colors duration-200 tracking-wide"
+      >
+        Learn More About Us
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+        </svg>
+      </a>
+    </div>
+  </section>
+
+  <!-- ░░ SERVICE TIMES ░░ -->
+  <section class="py-20 bg-white">
+    <div class="max-w-5xl mx-auto px-6">
+      <div class="text-center mb-12">
+        <span class="font-sans text-[10px] font-semibold tracking-[0.3em] uppercase text-gold">Gather With Us</span>
+        <h2 class="font-serif text-3xl md:text-4xl font-semibold text-navy mt-3">Service Times</h2>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div class="bg-cream rounded-xl p-9 text-center border-t-4 border-gold shadow-sm">
+          <p class="font-sans text-[10px] font-semibold tracking-[0.25em] uppercase text-gold mb-4">Sunday</p>
+          <p class="font-serif text-4xl font-semibold text-navy mb-1">9:30 <span class="text-2xl font-normal">AM</span></p>
+          <p class="font-sans text-sm text-slate-500 mt-2">Sunday School</p>
+        </div>
+
+        <div class="bg-navy rounded-xl p-9 text-center shadow-sm">
+          <p class="font-sans text-[10px] font-semibold tracking-[0.25em] uppercase text-gold mb-4">Sunday</p>
+          <p class="font-serif text-4xl font-semibold text-cream mb-1">10:30 <span class="text-2xl font-normal">AM</span></p>
+          <p class="font-sans text-sm text-cream/60 mt-2">Worship Service</p>
+        </div>
+
+        <div class="bg-cream rounded-xl p-9 text-center border-t-4 border-navy shadow-sm">
+          <p class="font-sans text-[10px] font-semibold tracking-[0.25em] uppercase text-gold mb-4">Wednesday</p>
+          <p class="font-serif text-4xl font-semibold text-navy mb-1">6:00 <span class="text-2xl font-normal">PM</span></p>
+          <p class="font-sans text-sm text-slate-500 mt-2">Bible Study</p>
+        </div>
+      </div>
+
+      <p class="text-center font-sans text-sm text-slate-400 mt-8">
+        1621 Main Street, Patterson, LA 70392
+      </p>
+    </div>
+  </section>
+
+  <!-- ░░ ABOUT PREVIEW ░░ -->
+  <section class="py-28 bg-cream">
+    <div class="max-w-5xl mx-auto px-6">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
+        <!-- Photo placeholder -->
+        <div class="bg-navy/10 rounded-2xl aspect-[4/3] flex items-center justify-center">
+          <p class="font-sans text-sm text-navy/30 text-center px-8">
+            Church photo<br />(drop image here)
+          </p>
+        </div>
+
+        <div>
+          <div class="flex items-center gap-4 mb-6">
+            <div class="h-px w-8 bg-gold/40"></div>
+            <span class="font-sans text-[10px] font-semibold tracking-[0.3em] uppercase text-gold">Our Community</span>
+          </div>
+          <h2 class="font-serif text-3xl md:text-4xl font-semibold text-navy leading-tight mb-6">
+            Kingdom Work in<br />St. Mary Parish
+          </h2>
+          <p class="font-sans text-slate-600 leading-relaxed mb-4">
+            For over 15 years, First Baptist Church has been a place of worship, fellowship,
+            and service right here in Patterson, Louisiana.
+          </p>
+          <p class="font-sans text-slate-600 leading-relaxed mb-8">
+            We believe in the power of the Gospel to transform lives, and we invite you to
+            be part of what God is doing in our community.
+          </p>
+          <a
+            href="/about"
+            class="inline-flex items-center gap-2 px-7 py-3.5 bg-navy text-cream font-sans text-sm font-medium rounded transition-all duration-200 hover:bg-gold hover:text-navy"
+          >
+            Our Story
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+            </svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ░░ UPCOMING EVENTS ░░ -->
+  <section class="py-20 bg-white">
+    <div class="max-w-5xl mx-auto px-6 text-center">
+      <div class="flex items-center justify-center gap-4 mb-4">
+        <div class="h-px w-10 bg-gold/40"></div>
+        <span class="font-sans text-[10px] font-semibold tracking-[0.3em] uppercase text-gold">What's Coming Up</span>
+        <div class="h-px w-10 bg-gold/40"></div>
+      </div>
+      <h2 class="font-serif text-3xl md:text-4xl font-semibold text-navy mt-2 mb-4">Upcoming Events</h2>
+      <p class="font-sans text-slate-500 text-lg mb-10 max-w-lg mx-auto">
+        Stay up to date with our services, gatherings, and community events.
+      </p>
+      <a
+        href="/calendar"
+        class="inline-flex items-center gap-2 px-9 py-4 bg-navy text-cream font-sans font-medium text-sm tracking-wide rounded transition-all duration-200 hover:bg-gold hover:text-navy"
+      >
+        View Full Calendar
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+        </svg>
+      </a>
+    </div>
+  </section>
+
+  <!-- ░░ NEWSLETTER CTA ░░ -->
+  <section class="py-28 bg-navy relative overflow-hidden">
+    <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_right,_#243548_0%,_#131E28_60%)]"></div>
+    <div class="relative z-10 max-w-2xl mx-auto px-6 text-center">
+      <div class="flex items-center justify-center gap-4 mb-6">
+        <div class="h-px w-10 bg-gold/40"></div>
+        <span class="font-sans text-[10px] font-semibold tracking-[0.3em] uppercase text-gold">Stay Connected</span>
+        <div class="h-px w-10 bg-gold/40"></div>
+      </div>
+      <h2 class="font-serif text-3xl md:text-4xl font-semibold text-cream mb-5">
+        Keep Up With Our Community
+      </h2>
+      <p class="font-sans text-cream/65 text-lg leading-relaxed mb-10">
+        Subscribe to our newsletter for announcements, event reminders, and words of
+        encouragement delivered to your inbox.
+      </p>
+      <a
+        href="/newsletter"
+        class="inline-flex items-center gap-2 px-9 py-4 bg-gold text-navy font-sans font-semibold text-sm tracking-wide rounded transition-all duration-200 hover:bg-gold-light hover:shadow-lg"
+      >
+        Subscribe to Our Newsletter
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+        </svg>
+      </a>
+    </div>
+  </section>
+
+</Layout>

@@ -1,0 +1,81 @@
+---
+const navLinks = [
+  { href: '/about', label: 'About' },
+  { href: '/calendar', label: 'Calendar' },
+  { href: '/newsletter', label: 'Newsletter' },
+  { href: '/contact', label: 'Contact' },
+];
+
+const currentPath = Astro.url.pathname;
+---
+
+<header class="fixed top-0 left-0 right-0 z-50 bg-cream/95 backdrop-blur-sm border-b border-navy/10 shadow-sm">
+  <nav class="max-w-6xl mx-auto px-6 h-20 flex items-center justify-between">
+
+    <a href="/" class="flex flex-col leading-tight group">
+      <span class="font-serif text-lg font-semibold text-navy group-hover:text-gold transition-colors duration-200">
+        First Baptist Church
+      </span>
+      <span class="font-sans text-[10px] font-medium tracking-[0.25em] uppercase text-gold">
+        Patterson, Louisiana
+      </span>
+    </a>
+
+    <ul class="hidden md:flex items-center gap-8">
+      {navLinks.map(link => (
+        <li>
+          <a
+            href={link.href}
+            class={`font-sans text-sm font-medium tracking-wide transition-colors duration-200 hover:text-gold ${
+              currentPath.startsWith(link.href) ? 'text-gold' : 'text-navy'
+            }`}
+          >
+            {link.label}
+          </a>
+        </li>
+      ))}
+    </ul>
+
+    <a
+      href="/contact"
+      class="hidden md:inline-flex items-center px-5 py-2.5 bg-navy text-cream font-sans text-sm font-medium rounded transition-colors duration-200 hover:bg-gold hover:text-navy"
+    >
+      Join Us
+    </a>
+
+    <button
+      id="mobile-menu-btn"
+      class="md:hidden text-navy hover:text-gold transition-colors duration-200"
+      aria-label="Open menu"
+    >
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+      </svg>
+    </button>
+  </nav>
+
+  <div id="mobile-menu" class="hidden md:hidden bg-cream border-t border-navy/10 px-6 py-5">
+    <ul class="flex flex-col gap-5">
+      {navLinks.map(link => (
+        <li>
+          <a href={link.href} class="font-sans text-base text-navy hover:text-gold transition-colors duration-200">
+            {link.label}
+          </a>
+        </li>
+      ))}
+      <li class="pt-1">
+        <a href="/contact" class="inline-flex items-center px-5 py-2.5 bg-navy text-cream font-sans text-sm font-medium rounded hover:bg-gold hover:text-navy transition-colors duration-200">
+          Join Us
+        </a>
+      </li>
+    </ul>
+  </div>
+</header>
+
+<script>
+  const btn = document.getElementById('mobile-menu-btn');
+  const menu = document.getElementById('mobile-menu');
+  btn?.addEventListener('click', () => {
+    menu?.classList.toggle('hidden');
+  });
+</script>

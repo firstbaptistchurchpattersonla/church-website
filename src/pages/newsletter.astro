@@ -1,0 +1,34 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout
+  title="Newsletter — First Baptist Church Patterson, LA"
+  description="Subscribe to the First Baptist Church Patterson newsletter for announcements and community updates."
+>
+  <section class="py-32 bg-cream min-h-[calc(100vh-5rem)]">
+    <div class="max-w-2xl mx-auto px-6 text-center">
+      <div class="flex items-center justify-center gap-4 mb-6">
+        <div class="h-px w-10 bg-gold/40"></div>
+        <span class="font-sans text-[10px] font-semibold tracking-[0.3em] uppercase text-gold">Stay Connected</span>
+        <div class="h-px w-10 bg-gold/40"></div>
+      </div>
+      <h1 class="font-serif text-5xl md:text-6xl font-semibold text-navy mt-2 mb-6">Our Newsletter</h1>
+      <p class="font-sans text-lg text-slate-600 leading-relaxed mb-12">
+        Subscribe to receive announcements, event updates, and encouragement
+        from our community — delivered right to your inbox.
+      </p>
+
+      <!-- TODO: Replace href with actual Google Form URL once created -->
+      <a
+        href="#"
+        class="inline-flex items-center gap-2 px-9 py-4 bg-gold text-navy font-sans font-semibold text-sm tracking-wide rounded transition-all duration-200 hover:bg-gold-light hover:shadow-lg"
+      >
+        Subscribe via Google Forms
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+        </svg>
+      </a>
+    </div>
+  </section>
+</Layout>

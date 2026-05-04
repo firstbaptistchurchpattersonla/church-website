@@ -1,0 +1,30 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout
+  title="Calendar — First Baptist Church Patterson, LA"
+  description="Upcoming services, events, and gatherings at First Baptist Church Patterson, LA."
+>
+  <section class="py-32 bg-cream min-h-[calc(100vh-5rem)]">
+    <div class="max-w-4xl mx-auto px-6">
+      <div class="text-center mb-14">
+        <div class="flex items-center justify-center gap-4 mb-6">
+          <div class="h-px w-10 bg-gold/40"></div>
+          <span class="font-sans text-[10px] font-semibold tracking-[0.3em] uppercase text-gold">What's Happening</span>
+          <div class="h-px w-10 bg-gold/40"></div>
+        </div>
+        <h1 class="font-serif text-5xl md:text-6xl font-semibold text-navy mt-2 mb-4">Events Calendar</h1>
+        <p class="font-sans text-lg text-slate-500">Stay up to date with our services and community events.</p>
+      </div>
+
+      <!-- TODO: Replace with Google Calendar embed -->
+      <!-- Embed format: https://calendar.google.com/calendar/embed?src=<CALENDAR_ID>&ctz=America%2FChicago -->
+      <div class="bg-white rounded-2xl border border-navy/10 shadow-sm p-16 text-center">
+        <p class="font-sans text-slate-400">
+          Google Calendar embed coming soon — requires church Google account setup.
+        </p>
+      </div>
+    </div>
+  </section>
+</Layout>
