@@ -11,22 +11,31 @@ const inputClass = variant === 'dark'
 const btnClass = variant === 'dark'
   ? 'bg-gold text-navy hover:bg-gold-light'
   : 'bg-navy text-cream hover:bg-gold hover:text-navy';
+
+const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzHKPhYDzVVmP-OP_B-SV4d4G-LkfIpQkB9A8Nlg1T4KH0-rav6ZaNkqPGOvHnZax13QA/exec';
 ---
 
-<!-- Set SCRIPT_URL below to your deployed Apps Script web app URL -->
 <div data-newsletter class="w-full">
-  <form data-newsletter-form class="flex flex-col sm:flex-row gap-3 w-full">
+  <iframe name="newsletter-frame" style="display:none" aria-hidden="true"></iframe>
+
+  <form
+    data-newsletter-form
+    action={SCRIPT_URL}
+    method="GET"
+    target="newsletter-frame"
+    class="flex flex-col sm:flex-row gap-3 w-full"
+  >
     <input
-      data-newsletter-name
       type="text"
+      name="name"
       placeholder="First name"
       required
       autocomplete="given-name"
       class={`w-full sm:w-36 px-5 py-3.5 rounded border font-sans text-sm transition-colors duration-200 outline-none flex-shrink-0 ${inputClass}`}
     />
     <input
-      data-newsletter-email
       type="email"
+      name="email"
       placeholder="Email address"
       required
       autocomplete="email"
@@ -46,49 +55,19 @@ const btnClass = variant === 'dark'
   >
     ✓ You're subscribed. Thank you!
   </p>
-  <p
-    data-newsletter-error
-    class="hidden font-sans text-sm mt-4 text-red-400"
-  >
-    Something went wrong — please try again.
-  </p>
 </div>
 
 <script>
-  const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzHKPhYDzVVmP-OP_B-SV4d4G-LkfIpQkB9A8Nlg1T4KH0-rav6ZaNkqPGOvHnZax13QA/exec';
-
   document.querySelectorAll('[data-newsletter]').forEach(container => {
     const form = container.querySelector<HTMLFormElement>('[data-newsletter-form]');
-    const nameInput = container.querySelector<HTMLInputElement>('[data-newsletter-name]');
-    const emailInput = container.querySelector<HTMLInputElement>('[data-newsletter-email]');
+    const iframe = container.querySelector('iframe');
     const successMsg = container.querySelector<HTMLElement>('[data-newsletter-success]');
-    const errorMsg = container.querySelector<HTMLElement>('[data-newsletter-error]');
-    const submitBtn = form?.querySelector<HTMLButtonElement>('button[type="submit"]');
 
-    form?.addEventListener('submit', async e => {
-      e.preventDefault();
-      if (!nameInput || !emailInput || !submitBtn) return;
-
-      const name = nameInput.value.trim();
-      const email = emailInput.value.trim();
-      const originalText = submitBtn.textContent ?? 'Subscribe';
-
-      submitBtn.disabled = true;
-      submitBtn.textContent = 'Subscribing…';
-      if (errorMsg) errorMsg.classList.add('hidden');
-
-      try {
-        await fetch(`${SCRIPT_URL}?${new URLSearchParams({ name, email })}`, {
-          method: 'GET',
-          mode: 'no-cors',
-        });
+    form?.addEventListener('submit', () => {
+      iframe?.addEventListener('load', () => {
         form.classList.add('hidden');
         if (successMsg) successMsg.classList.remove('hidden');
-      } catch {
-        if (errorMsg) errorMsg.classList.remove('hidden');
-        submitBtn.disabled = false;
-        submitBtn.textContent = originalText;
-      }
+      }, { once: true });
     });
   });
 </script>
