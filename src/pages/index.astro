@@ -1,5 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import NewsletterForm from '../components/NewsletterForm.astro';
 ---
 
 <Layout title="First Baptist Church Patterson, LA — Loving God and People">
@@ -211,15 +212,7 @@ import Layout from '../layouts/Layout.astro';
         Subscribe to our newsletter for announcements, event reminders, and words of
         encouragement delivered to your inbox.
       </p>
-      <a
-        href="/newsletter"
-        class="inline-flex items-center gap-2 px-9 py-4 bg-gold text-navy font-sans font-semibold text-sm tracking-wide rounded transition-all duration-200 hover:bg-gold-light hover:shadow-lg"
-      >
-        Subscribe to Our Newsletter
-        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
-        </svg>
-      </a>
+      <NewsletterForm variant="dark" />
     </div>
   </section>
 

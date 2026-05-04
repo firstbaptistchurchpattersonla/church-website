@@ -1,0 +1,86 @@
+---
+interface Props {
+  variant?: 'dark' | 'light';
+}
+const { variant = 'light' } = Astro.props;
+
+const inputClass = variant === 'dark'
+  ? 'bg-cream/10 border-cream/20 text-cream placeholder-cream/40 focus:border-gold focus:bg-cream/15'
+  : 'bg-white border-navy/15 text-navy placeholder-slate-400 focus:border-gold';
+
+const btnClass = variant === 'dark'
+  ? 'bg-gold text-navy hover:bg-gold-light'
+  : 'bg-navy text-cream hover:bg-gold hover:text-navy';
+---
+
+<!-- NEWSLETTER_SCRIPT_URL: replace the empty string below with your Apps Script web app URL -->
+<!-- after deploying the script (see instructions in the repo's README or ask Claude). -->
+<div data-newsletter class="w-full">
+  <form data-newsletter-form class="flex flex-col sm:flex-row gap-3 w-full">
+    <input
+      data-newsletter-email
+      type="email"
+      placeholder="Your email address"
+      required
+      autocomplete="email"
+      class={`flex-1 px-5 py-3.5 rounded border font-sans text-sm transition-colors duration-200 outline-none ${inputClass}`}
+    />
+    <button
+      type="submit"
+      class={`flex-shrink-0 px-7 py-3.5 rounded font-sans font-semibold text-sm tracking-wide transition-all duration-200 ${btnClass}`}
+    >
+      Subscribe
+    </button>
+  </form>
+
+  <p
+    data-newsletter-success
+    class="hidden font-sans text-sm mt-4 text-green-400 font-medium"
+  >
+    ✓ You're subscribed. Thank you!
+  </p>
+  <p
+    data-newsletter-error
+    class="hidden font-sans text-sm mt-4 text-red-400"
+  >
+    Something went wrong — please try again.
+  </p>
+</div>
+
+<script>
+  const SCRIPT_URL = '';
+
+  document.querySelectorAll('[data-newsletter]').forEach(container => {
+    const form = container.querySelector<HTMLFormElement>('[data-newsletter-form]');
+    const emailInput = container.querySelector<HTMLInputElement>('[data-newsletter-email]');
+    const successMsg = container.querySelector<HTMLElement>('[data-newsletter-success]');
+    const errorMsg = container.querySelector<HTMLElement>('[data-newsletter-error]');
+    const submitBtn = form?.querySelector<HTMLButtonElement>('button[type="submit"]');
+
+    form?.addEventListener('submit', async e => {
+      e.preventDefault();
+      if (!emailInput || !submitBtn) return;
+
+      const email = emailInput.value.trim();
+      const originalText = submitBtn.textContent ?? 'Subscribe';
+
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Subscribing…';
+      if (errorMsg) errorMsg.classList.add('hidden');
+
+      try {
+        await fetch(SCRIPT_URL, {
+          method: 'POST',
+          mode: 'no-cors',
+          body: new URLSearchParams({ email }),
+        });
+        form.classList.add('hidden');
+        if (successMsg) successMsg.classList.remove('hidden');
+      } catch {
+        if (errorMsg) errorMsg.classList.remove('hidden');
+        submitBtn.disabled = false;
+        submitBtn.textContent = originalText;
+      }
+    });
+  });
+</script>

@@ -7,7 +7,7 @@ import Layout from '../layouts/Layout.astro';
   description="Upcoming services, events, and gatherings at First Baptist Church Patterson, LA."
 >
   <section class="py-32 bg-cream min-h-[calc(100vh-5rem)]">
-    <div class="max-w-4xl mx-auto px-6">
+    <div class="max-w-5xl mx-auto px-6">
       <div class="text-center mb-14">
         <div class="flex items-center justify-center gap-4 mb-6">
           <div class="h-px w-10 bg-gold/40"></div>
@@ -18,13 +18,19 @@ import Layout from '../layouts/Layout.astro';
         <p class="font-sans text-lg text-slate-500">Stay up to date with our services and community events.</p>
       </div>
 
-      <!-- TODO: Replace with Google Calendar embed -->
-      <!-- Embed format: https://calendar.google.com/calendar/embed?src=<CALENDAR_ID>&ctz=America%2FChicago -->
-      <div class="bg-white rounded-2xl border border-navy/10 shadow-sm p-16 text-center">
-        <p class="font-sans text-slate-400">
-          Google Calendar embed coming soon — requires church Google account setup.
-        </p>
+      <div class="rounded-2xl overflow-hidden border border-navy/10 shadow-sm bg-white">
+        <iframe
+          src="https://calendar.google.com/calendar/embed?src=f934b0fd25324314a4b9fe469cde33d240c995574fed0e39c266cd8dd61e409f%40group.calendar.google.com&ctz=America%2FChicago&showTitle=0&showPrint=0&showCalendars=0&showTz=0"
+          style="border: 0; display: block; width: 100%; height: 640px;"
+          frameborder="0"
+          scrolling="no"
+          title="First Baptist Church Patterson Events Calendar"
+        ></iframe>
       </div>
+
+      <p class="text-center font-sans text-sm text-slate-400 mt-5">
+        All times Central. For questions about events call <a href="tel:9853953681" class="text-gold hover:text-navy transition-colors">(985) 395-3681</a>.
+      </p>
     </div>
   </section>
 </Layout>
