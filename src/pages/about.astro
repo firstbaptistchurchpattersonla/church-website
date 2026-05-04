@@ -4,21 +4,127 @@ import Layout from '../layouts/Layout.astro';
 
 <Layout
   title="About | First Baptist Church Patterson, LA"
-  description="Learn about First Baptist Church in Patterson, Louisiana. Our history, mission, and community."
+  description="A small traditional church in Patterson, Louisiana, planted by the hand of God in St. Mary Parish to evangelize, disciple, and fellowship with brothers and sisters in Jesus Christ."
 >
-  <section class="py-32 bg-cream min-h-[calc(100vh-5rem)]">
+
+  <!-- ░░ HERO ░░ -->
+  <section class="py-28 bg-navy">
     <div class="max-w-3xl mx-auto px-6 text-center">
       <div class="flex items-center justify-center gap-4 mb-6">
         <div class="h-px w-10 bg-gold/40"></div>
         <span class="font-sans text-[10px] font-semibold tracking-[0.3em] uppercase text-gold">Our Story</span>
         <div class="h-px w-10 bg-gold/40"></div>
       </div>
-      <h1 class="font-serif text-5xl md:text-6xl font-semibold text-navy mt-2 mb-8">About Our Church</h1>
-      <p class="font-sans text-lg text-slate-600 leading-relaxed">
-        Content coming soon. We are a small, traditional Baptist church in Patterson, Louisiana,
-        planted by the hand of God in St. Mary Parish for Kingdom work and committed to
-        loving God and loving people.
+      <h1 class="font-serif text-5xl md:text-6xl font-semibold text-cream mt-2 mb-6">About Our Church</h1>
+      <p class="font-serif text-xl text-cream/70 italic">
+        Small Traditional Church Loving God and People
       </p>
     </div>
   </section>
+
+  <!-- ░░ MISSION ░░ -->
+  <section class="py-20 bg-white">
+    <div class="max-w-3xl mx-auto px-6 text-center">
+      <p class="font-serif text-2xl md:text-3xl text-navy font-medium leading-relaxed">
+        Planted by the hand of God in the heart of St. Mary Parish to do Kingdom work
+        by evangelizing, discipling, and fellowshipping with like-minded brothers and sisters
+        in Jesus Christ.
+      </p>
+    </div>
+  </section>
+
+  <!-- ░░ ABOUT TEXT ░░ -->
+  <section class="py-20 bg-cream">
+    <div class="max-w-2xl mx-auto px-6">
+      <div class="flex items-center gap-4 mb-8">
+        <div class="h-px w-10 bg-gold/40"></div>
+        <span class="font-sans text-[10px] font-semibold tracking-[0.3em] uppercase text-gold">Who We Are</span>
+      </div>
+      <div class="space-y-6 font-sans text-lg text-slate-600 leading-relaxed">
+        <p>
+          The small church in St. Mary Parish is dedicated to evangelizing, discipling, and
+          fellowshipping with like-minded brothers and sisters in Jesus Christ. This community
+          is committed to spreading the teachings of Jesus, nurturing and guiding others in
+          their faith, and building a strong sense of fellowship among its members.
+        </p>
+        <p>
+          The church provides a welcoming and supportive environment for all who seek to deepen
+          their relationship with God and grow in their understanding of the Christian faith.
+          Through worship, prayer, and service to others, the church strives to bring people
+          closer to Christ and to each other, creating a sense of unity and purpose within
+          the community.
+        </p>
+        <p>
+          Together, the members of this church work to live out the principles of love,
+          compassion, and faith as they follow the example of Jesus in their daily lives.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ░░ LOCATION ░░ -->
+  <section class="py-20 bg-white">
+    <div class="max-w-5xl mx-auto px-6">
+      <div class="text-center mb-12">
+        <div class="flex items-center justify-center gap-4 mb-4">
+          <div class="h-px w-10 bg-gold/40"></div>
+          <span class="font-sans text-[10px] font-semibold tracking-[0.3em] uppercase text-gold">Find Us</span>
+          <div class="h-px w-10 bg-gold/40"></div>
+        </div>
+        <h2 class="font-serif text-3xl md:text-4xl font-semibold text-navy mt-2">Visit Us</h2>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-10 items-start">
+
+        <div class="md:col-span-2 rounded-2xl overflow-hidden border border-navy/10 shadow-sm">
+          <iframe
+            src="https://maps.google.com/maps?q=1621+Main+Street+Patterson+LA+70392&t=&z=15&ie=UTF8&iwloc=&output=embed"
+            style="border: 0; display: block; width: 100%; height: 400px;"
+            allowfullscreen
+            loading="lazy"
+            title="First Baptist Church Patterson location"
+          ></iframe>
+        </div>
+
+        <div class="space-y-6 pt-2">
+          <div>
+            <h3 class="font-sans text-[10px] font-semibold tracking-[0.25em] uppercase text-gold mb-3">Address</h3>
+            <p class="font-sans text-slate-700 leading-relaxed">
+              1621 Main Street<br />
+              Patterson, LA 70392
+            </p>
+            <a
+              href="https://maps.google.com/?q=1621+Main+Street+Patterson+LA+70392"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="inline-flex items-center gap-1.5 mt-3 font-sans text-sm font-medium text-gold hover:text-navy transition-colors duration-200"
+            >
+              Get Directions
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
+              </svg>
+            </a>
+          </div>
+
+          <div>
+            <h3 class="font-sans text-[10px] font-semibold tracking-[0.25em] uppercase text-gold mb-3">Phone</h3>
+            <a href="tel:9853953681" class="font-sans text-slate-700 hover:text-gold transition-colors duration-200">
+              (985) 395-3681
+            </a>
+          </div>
+
+          <div>
+            <h3 class="font-sans text-[10px] font-semibold tracking-[0.25em] uppercase text-gold mb-3">Service Times</h3>
+            <ul class="space-y-2 font-sans text-sm text-slate-600">
+              <li>Sunday 9:30 AM, Sunday School</li>
+              <li>Sunday 10:30 AM, Worship Service</li>
+              <li>Wednesday 6:00 PM, Bible Study</li>
+            </ul>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
 </Layout>
