@@ -9,15 +9,18 @@ const navLinks = [
 const currentPath = Astro.url.pathname;
 ---
 
-<header class="fixed top-0 left-0 right-0 z-50 bg-cream/95 backdrop-blur-sm border-b border-navy/10 shadow-sm">
+<header class="fixed top-0 left-0 right-0 z-50 bg-cream border-b border-navy/10 shadow-sm">
   <nav class="max-w-6xl mx-auto px-6 h-20 flex items-center justify-between">
 
-    <a href="/" class="flex items-center">
+    <a href="/" class="flex items-center gap-3 group">
       <img
         src="/logo1.png"
         alt="First Baptist Church Patterson, Louisiana"
-        class="h-12 w-auto"
+        class="h-12 w-auto flex-shrink-0"
       />
+      <span class="font-serif text-lg font-semibold text-navy group-hover:text-gold transition-colors duration-200 leading-tight">
+        First Baptist Church
+      </span>
     </a>
 
     <ul class="hidden md:flex items-center gap-8">

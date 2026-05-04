@@ -64,6 +64,11 @@ const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzHKPhYDzVVmP-OP_B-S
     const successMsg = container.querySelector<HTMLElement>('[data-newsletter-success]');
 
     form?.addEventListener('submit', () => {
+      const submitBtn = form.querySelector<HTMLButtonElement>('button[type="submit"]');
+      if (submitBtn) {
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Subscribing…';
+      }
       iframe?.addEventListener('load', () => {
         form.classList.add('hidden');
         if (successMsg) successMsg.classList.remove('hidden');
