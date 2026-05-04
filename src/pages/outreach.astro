@@ -1,0 +1,162 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSYqnkwYunel9o-lH5NZ9fuFANJHx5CdYtXEDTlHJb3kbrpvzOuAPZHKFhJ6jdWl4aV3ciFwIdBomKs/pub?gid=0&single=true&output=csv';
+---
+
+<Layout
+  title="Mission Outreach | First Baptist Church Patterson, LA"
+  description="First Baptist Church Patterson reaches out to those in need in St. Mary Parish through donated items and financial assistance. See what we currently need."
+>
+
+  <!-- ░░ HERO ░░ -->
+  <section class="py-28 bg-navy">
+    <div class="max-w-3xl mx-auto px-6 text-center">
+      <div class="flex items-center justify-center gap-4 mb-6">
+        <div class="h-px w-10 bg-gold/40"></div>
+        <span class="font-sans text-[10px] font-semibold tracking-[0.3em] uppercase text-gold">Serving Our Community</span>
+        <div class="h-px w-10 bg-gold/40"></div>
+      </div>
+      <h1 class="font-serif text-5xl md:text-6xl font-semibold text-cream mt-2 mb-6">Mission Outreach</h1>
+      <p class="font-serif text-xl text-cream/70 italic">
+        Being the hands and feet of Jesus in St. Mary Parish
+      </p>
+    </div>
+  </section>
+
+  <!-- ░░ BLURB ░░ -->
+  <section class="py-20 bg-cream">
+    <div class="max-w-2xl mx-auto px-6">
+      <div class="flex items-center gap-4 mb-8">
+        <div class="h-px w-10 bg-gold/40"></div>
+        <span class="font-sans text-[10px] font-semibold tracking-[0.3em] uppercase text-gold">Our Mission</span>
+      </div>
+      <div class="space-y-6 font-sans text-lg text-slate-600 leading-relaxed">
+        <p>
+          At First Baptist Church Patterson, we believe that faith without action is faith
+          left unfinished. Our Mission Outreach program is how we put that belief into practice.
+          Through donated goods and financial assistance, we serve the people of Patterson and
+          the surrounding St. Mary Parish who are facing hardship.
+        </p>
+        <p>
+          The needs of our community change regularly, and so does our list of needed items.
+          We keep this page updated so you always know exactly how you can help right now.
+          Every donation, large or small, makes a real difference in the life of someone in our community.
+        </p>
+        <p>
+          If you feel led to give, bring your donation to the church during any service or
+          call us at <a href="tel:9853953681" class="text-gold hover:text-navy transition-colors font-medium">(985) 395-3681</a> to arrange a drop-off.
+          Thank you for partnering with us in this work.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ░░ NEEDED ITEMS ░░ -->
+  <section class="py-20 bg-white">
+    <div class="max-w-5xl mx-auto px-6">
+      <div class="text-center mb-12">
+        <div class="flex items-center justify-center gap-4 mb-4">
+          <div class="h-px w-10 bg-gold/40"></div>
+          <span class="font-sans text-[10px] font-semibold tracking-[0.3em] uppercase text-gold">How You Can Help</span>
+          <div class="h-px w-10 bg-gold/40"></div>
+        </div>
+        <h2 class="font-serif text-3xl md:text-4xl font-semibold text-navy mt-2 mb-3">Currently Needed</h2>
+        <p class="font-sans text-slate-500 text-sm">Updated regularly. Check back often.</p>
+      </div>
+
+      <div id="outreach-items">
+        <div class="flex justify-center py-12">
+          <div class="w-8 h-8 border-2 border-gold border-t-transparent rounded-full animate-spin"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</Layout>
+
+<script define:vars={{ CSV_URL }}>
+  function parseCSV(text) {
+    return text.split('\n').map(line => {
+      const result = [];
+      let cell = '';
+      let inQuotes = false;
+      for (let i = 0; i < line.length; i++) {
+        if (line[i] === '"') {
+          inQuotes = !inQuotes;
+        } else if (line[i] === ',' && !inQuotes) {
+          result.push(cell.trim());
+          cell = '';
+        } else {
+          cell += line[i];
+        }
+      }
+      result.push(cell.trim());
+      return result;
+    }).filter(row => row.some(c => c.trim()));
+  }
+
+  function renderCard(item, notes) {
+    return `
+      <div class="bg-cream rounded-xl p-6 border-l-4 border-gold shadow-sm">
+        <p class="font-serif text-lg font-semibold text-navy leading-snug">${item}</p>
+        ${notes ? `<p class="font-sans text-sm text-slate-500 mt-2 leading-relaxed">${notes}</p>` : ''}
+      </div>
+    `;
+  }
+
+  async function loadItems() {
+    const container = document.getElementById('outreach-items');
+    if (!container) return;
+
+    try {
+      const response = await fetch(CSV_URL);
+      const text = await response.text();
+      const rows = parseCSV(text);
+
+      if (rows.length < 2) {
+        container.innerHTML = '<p class="text-center font-sans text-slate-400 py-8">No items currently listed. Check back soon.</p>';
+        return;
+      }
+
+      const headers = rows[0].map(h => h.trim().toLowerCase());
+      const data = rows.slice(1).filter(row => row.some(c => c.trim()));
+
+      const itemIdx = headers.findIndex(h => h.includes('item') || h.includes('name') || h === '');
+      const catIdx  = headers.findIndex(h => h.includes('cat'));
+      const noteIdx = headers.findIndex(h => h.includes('note') || h.includes('desc'));
+
+      const getItem  = row => row[itemIdx >= 0 ? itemIdx : 0] || '';
+      const getCat   = row => catIdx  >= 0 ? (row[catIdx]  || '').trim() : '';
+      const getNotes = row => noteIdx >= 0 ? (row[noteIdx] || '').trim() : '';
+
+      if (catIdx >= 0) {
+        const groups = {};
+        data.forEach(row => {
+          const cat = getCat(row) || 'General';
+          if (!groups[cat]) groups[cat] = [];
+          groups[cat].push(row);
+        });
+
+        container.innerHTML = Object.entries(groups).map(([cat, rows]) => `
+          <div class="mb-10">
+            <h3 class="font-sans text-xs font-semibold tracking-[0.25em] uppercase text-gold mb-5">${cat}</h3>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+              ${rows.map(row => renderCard(getItem(row), getNotes(row))).join('')}
+            </div>
+          </div>
+        `).join('');
+      } else {
+        container.innerHTML = `
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            ${data.map(row => renderCard(getItem(row), getNotes(row))).join('')}
+          </div>
+        `;
+      }
+    } catch {
+      container.innerHTML = '<p class="text-center font-sans text-slate-400 py-8">Unable to load items right now. Please check back soon or call us at (985) 395-3681.</p>';
+    }
+  }
+
+  loadItems();
+</script>
