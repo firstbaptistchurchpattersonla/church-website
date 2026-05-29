@@ -60,24 +60,54 @@ The version follows `vMAJOR.MINOR.PATCH.BUILD`. Bump per these rules:
 
 Do the work the user asked for. Make the smallest set of edits that solve the problem. No unrelated refactoring. No "while I'm here" cleanup unless the user asked.
 
-### 4. Update the vault housekeeping
+### 4. Run the mandatory housekeeping checklist
 
-Decide which files this commit affects, and update them. Common cases:
+**This is not optional. Go through every line and state your answer out loud in your response. If the answer is "yes", the update must happen before you continue.**
 
-| What changed | Update which file in the vault |
-|---|---|
-| Feature shipped or progressed | `features/<feature>.md` (status, version introduced, scope) |
-| Architectural decision made | `decisions/decisions.md` (append a new block) |
-| Open question raised | `tbd/tbd.md` (open table) |
-| Open question answered | `tbd/tbd.md` (move to resolved) — and if the answer is a real decision, also append to `decisions/decisions.md` |
-| Milestone completed | `roadmap/phase-N.md` (mark `- [x]`, add the version it landed in) |
-| New idea recorded | `ideas/<idea-name>.md` (one file per idea) |
-| Phase started or closed | `roadmap/phase-N.md` (header status emoji), and consider adding a "Phase N closed" entry to project card recent activity |
-| Spec changed | the affected feature/spec file |
-| New area appeared | `areas/<area>.md` (hub note for backlinks) AND add to `commit.md` frontmatter `areas:` list |
-| New type appeared | add to `commit.md` frontmatter `types:` list |
+```
+FEATURES
+Did this commit ship, progress, or change a feature?
+→ YES: updated features/<slug>.md (status, version introduced, scope)   /   NO: n/a
 
-If your commit doesn't fit any of these (rare), update at minimum the project card's "Recent Activity" section.
+ROADMAP
+Did a milestone close or change status?
+→ YES: marked [x] M## in roadmap/phase-N.md, noted version it landed in   /   NO: n/a
+
+PHASE
+Did a phase open or close?
+→ YES: updated roadmap/phase-N.md header emoji (✅/🔄/⬜)   /   NO: n/a
+
+BUG FIXED
+Is the commit type `fix`?
+→ YES (type is fix): you MUST create or update bugs/<slug>.md — this is not optional.
+  • If an existing bug file exists: set status: fixed, fill version-fixed.
+  • If no bug file exists yet (bug was found and fixed in the same commit): create one now with status: fixed, version-found = current version, version-fixed = current version, body describing what the bug was.
+  • A `fix:` commit with no corresponding bug file is INCOMPLETE. Do not proceed to step 5.
+→ NO (type is not fix): n/a
+
+BUG FOUND
+Did you encounter unexpected behavior, an error, or something broken during this work — even if you fixed it immediately?
+→ YES: create bugs/<slug>.md with status: in progress (unfixed) or status: fixed (already resolved). If you fixed it in the same commit, the type should be `fix` — see BUG FIXED above.
+→ NO: n/a
+
+DECISION
+Was an architectural or design choice made?
+→ YES: appended to decisions/decisions.md   /   NO: n/a
+
+TBD
+Was a question raised or answered?
+→ YES (raised): added to tbd/tbd.md Open table
+→ YES (answered): moved to tbd/tbd.md Resolved, and if decision-worthy, also appended to decisions/decisions.md
+→ NO: n/a
+
+NOTES
+Is there a file in notes/ the user asked to convert?
+→ YES: converted to proper formatted file, deleted the note   /   NO: n/a
+```
+
+**Do not proceed to step 5 if any YES line has no action taken. Go back and do it.**
+
+If this commit genuinely has no housekeeping to update in any category, explicitly state "all n/a" before continuing.
 
 ### 5. Append the commit line to `<vault>/commit.md`
 
